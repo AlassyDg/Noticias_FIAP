@@ -1,36 +1,25 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Webapiaspnet.Data;
 using Webapiaspnet.Data.DTO;
 using Webapiaspnet.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Webapiaspnet.Controllers
 {
     [Route("[controller]")]
     [ApiController]
     public class NoticiaController : ControllerBase
     {
-
         private readonly WebapiContext _context;
-        
-
-        public NoticiaController(WebapiContext context)
+           public NoticiaController(WebapiContext context)
         {
-            _context = context;
-            
+            _context = context;    
         }
         // GET: api/<NoticiaController>
         [HttpGet]
-
         public IEnumerable<Noticia> GetNoticia([FromQuery] int skip = 0, [FromQuery] int take = 9)
         {
             return _context.Noticia.Skip(skip).Take(take);
         }
-
-
         // GET api/<NoticiaController>/5
         [HttpGet("{id}")]
         public IActionResult NoticiaPorId(int id)
@@ -42,8 +31,6 @@ namespace Webapiaspnet.Controllers
             }
             return Ok(noticia);
         }
-
-
         // POST api/<NoticiaController>
         [HttpPost]
         public IActionResult AddNoticia([FromBody] CreateNoticiaDto noticiadto)
@@ -59,10 +46,7 @@ namespace Webapiaspnet.Controllers
             _context.Noticia.Add(noticia);
             _context.SaveChanges();
             return CreatedAtAction(nameof(NoticiaPorId), new { id = noticia.Id }, noticia);
-
-
         }
-
         // PUT api/<NoticiaController>/5
         [HttpPut("{id}")]
         public IActionResult UpdateNoticia(int id, [FromBody] UpdateNoticiaDto noticiadto)
@@ -76,11 +60,9 @@ namespace Webapiaspnet.Controllers
                 DataPublicacao = noticiadto.DataPublicacao,
                 Autor = noticiadto.Autor
             };
-
             _context.SaveChanges();
             return NoContent();
         }
-
         // DELETE api/<NoticiaController>/5
         [HttpDelete("{id}")]
         public IActionResult DeleteNoticia(int id)
@@ -90,7 +72,6 @@ namespace Webapiaspnet.Controllers
             _context.Remove(noticia);
             _context.SaveChanges();
             return NoContent();
-
         }
 
     }
